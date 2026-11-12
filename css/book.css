@@ -124,7 +124,7 @@
   border-radius: 0 12px 12px 0;
 }
 
-/* Individual 3D Leaf */
+/* Individual 3D Leaf (Desktop) */
 .leaf {
   position: absolute;
   top: 0;
@@ -280,17 +280,38 @@
     border-radius: 16px;
   }
 
-  /* In mobile mode, leaves act as full-width containers */
+  /* Leaves in mobile mode: full-width containers with 3D left hinge */
   .leaf {
     width: 100% !important;
     left: 0 !important;
     right: 0 !important;
-    transform: none !important;
-    transform-style: flat !important;
+    transform-origin: left center !important;
+    transform-style: preserve-3d !important;
+    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+  }
+
+  /* Active leaf: sits flat on top of the stack */
+  .leaf.leaf-active {
+    transform: rotateY(0deg) !important;
+    opacity: 1 !important;
+    pointer-events: auto;
+  }
+
+  /* Upcoming leaves: waiting underneath */
+  .leaf.leaf-upcoming {
+    transform: rotateY(0deg) !important;
+    opacity: 1 !important;
     pointer-events: none;
   }
 
-  /* Every single page is an independent full-width, full-height card */
+  /* Passed leaves: turned over in 3D to the left stack */
+  .leaf.leaf-passed {
+    transform: rotateY(-180deg) !important;
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+
+  /* Individual full-width pages */
   .page {
     position: absolute;
     top: 0;
@@ -300,40 +321,40 @@
     border-radius: 16px !important;
     padding: clamp(18px, 4.5vw, 24px) clamp(16px, 4.2vw, 20px);
     transform-origin: left center !important;
-    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.45s ease, box-shadow 0.65s ease;
+    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+  }
+
+  /* Front page sits on top of back page inside the leaf */
+  .page-front {
+    z-index: 2;
+  }
+  .page-back {
+    z-index: 1;
+    transform: none !important; /* faces forward inside leaf */
+  }
+
+  /* When front page turns over, it folds -180deg to reveal back page */
+  .page-front.page-passed {
+    transform: rotateY(-180deg) !important;
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+
+  .page-front.page-active {
+    transform: rotateY(0deg) !important;
+    opacity: 1 !important;
     pointer-events: auto;
   }
 
-  /* Reset back-face rotation on mobile so every page faces forward */
-  .page-back {
-    transform: none !important;
-  }
-
-  /* Active visible page: sits flat and fully visible */
-  .page.mobile-active {
+  .page-back.page-active {
     transform: rotateY(0deg) !important;
     opacity: 1 !important;
-    pointer-events: auto !important;
-    box-shadow: 0 12px 30px -5px rgba(90, 60, 50, 0.16);
+    pointer-events: auto;
+    z-index: 3;
   }
 
-  /* Upcoming pages underneath */
-  .page.mobile-upcoming {
-    transform: rotateY(0deg) !important;
-    opacity: 1 !important;
-    pointer-events: none !important;
-  }
-
-  /* Completed / turned pages: folded over to the left stack in 3D */
-  .page.mobile-passed {
-    transform: rotateY(-180deg) !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
-  /* Corner curls on mobile */
   .corner-curl {
     width: 58px !important;
     height: 58px !important;

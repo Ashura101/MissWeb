@@ -4,9 +4,8 @@ class CuteFlipBook {
   constructor() {
     this.bookEl = document.getElementById('flipBook');
     this.leaves = Array.from(document.querySelectorAll('.leaf'));
-    this.pages = Array.from(document.querySelectorAll('.page'));
-    this.totalLeaves = this.leaves.length; // 4 leaves (desktop)
-    this.totalPages = this.pages.length;   // 8 individual pages (mobile)
+    this.totalLeaves = this.leaves.length; // 4 leaves
+    this.totalPages = 8;                   // 8 individual pages (mobile)
     
     this.isMobile = window.innerWidth <= 720;
     this.currentLeaf = 0; // Desktop leaf state (0 to 4)
@@ -41,10 +40,17 @@ class CuteFlipBook {
      DESKTOP RENDERING (2-Page Open Spread)
   ========================================= */
   renderDesktopState() {
-    // Clear mobile page classes
-    this.pages.forEach(page => {
-      page.classList.remove('mobile-active', 'mobile-upcoming', 'mobile-passed');
-      page.style.zIndex = '';
+    // Reset mobile classes on leaves and pages
+    this.leaves.forEach(leaf => {
+      leaf.classList.remove('leaf-active', 'leaf-upcoming', 'leaf-passed');
+      const front = leaf.querySelector('.page-front');
+      const back = leaf.querySelector('.page-back');
+      if (front) {
+        front.classList.remove('page-active', 'page-upcoming', 'page-passed');
+      }
+      if (back) {
+        back.classList.remove('page-active', 'page-upcoming', 'page-passed');
+      }
     });
 
     // Update Desktop flipped classes & leaf z-indices
@@ -58,7 +64,7 @@ class CuteFlipBook {
       }
     });
 
-    // Centering offsets on desktop
+    // Desktop book centering
     if (this.currentLeaf === 0) {
       this.bookEl.classList.add('closed-front');
       this.bookEl.classList.remove('closed-back');
@@ -77,29 +83,42 @@ class CuteFlipBook {
      MOBILE RENDERING (8 Sequential Pages)
   ========================================= */
   renderMobileState() {
-    // Clear desktop leaf classes
     this.bookEl.classList.remove('closed-front', 'closed-back');
-    this.leaves.forEach(leaf => {
-      leaf.classList.remove('flipped');
-      leaf.style.zIndex = '1';
-    });
+    this.leaves.forEach(leaf => leaf.classList.remove('flipped'));
 
-    // Manage all 8 pages as independent full-screen cards
-    this.pages.forEach((page, i) => {
-      page.classList.remove('mobile-active', 'mobile-upcoming', 'mobile-passed');
+    const activeLeafIdx = Math.floor(this.mobileStep / 2);
+    const isBackOfLeaf = this.mobileStep % 2 === 1;
 
-      if (i < this.mobileStep) {
-        // Turned pages: folded away to the left stack
-        page.classList.add('mobile-passed');
-        page.style.zIndex = i + 1;
-      } else if (i === this.mobileStep) {
-        // Current active page: sitting flat on top
-        page.classList.add('mobile-active');
-        page.style.zIndex = 30;
+    this.leaves.forEach((leaf, idx) => {
+      const front = leaf.querySelector('.page-front');
+      const back = leaf.querySelector('.page-back');
+
+      if (idx < activeLeafIdx) {
+        // Earlier leaves are already passed to the left
+        leaf.style.zIndex = idx + 1;
+        leaf.className = 'leaf leaf-passed';
+        if (front) front.className = 'page page-front page-passed';
+        if (back) back.className = 'page page-back page-passed';
+      } else if (idx === activeLeafIdx) {
+        // Active leaf currently being viewed (highest z-index: 40)
+        leaf.style.zIndex = 40;
+        leaf.className = 'leaf leaf-active';
+
+        if (isBackOfLeaf) {
+          // Front page has turned over, back page is active
+          if (front) front.className = 'page page-front page-passed';
+          if (back) back.className = 'page page-back page-active';
+        } else {
+          // Front page is active, back page is underneath
+          if (front) front.className = 'page page-front page-active';
+          if (back) back.className = 'page page-back page-upcoming';
+        }
       } else {
-        // Upcoming pages: stacked underneath
-        page.classList.add('mobile-upcoming');
-        page.style.zIndex = 20 - i;
+        // Upcoming leaves waiting in the right stack underneath
+        leaf.style.zIndex = 20 - idx;
+        leaf.className = 'leaf leaf-upcoming';
+        if (front) front.className = 'page page-front page-active';
+        if (back) back.className = 'page page-back page-upcoming';
       }
     });
 
@@ -116,22 +135,31 @@ class CuteFlipBook {
       if (this.mobileStep >= this.totalPages - 1) return;
       this.isAnimating = true;
 
-      const turningPage = this.pages[this.mobileStep];
-      const nextStep = this.mobileStep + 1;
-      const nextPage = this.pages[nextStep];
-
-      // Entire visible page lifts and folds over in 3D around its left hinge
-      turningPage.style.zIndex = 35;
-      turningPage.classList.remove('mobile-active');
-      turningPage.classList.add('mobile-passed');
-
-      if (nextPage) {
-        nextPage.classList.add('mobile-active');
-        nextPage.classList.remove('mobile-upcoming');
-        nextPage.style.zIndex = 30;
-      }
+      const currentStep = this.mobileStep;
+      const nextStep = currentStep + 1;
+      const activeLeaf = this.leaves[Math.floor(currentStep / 2)];
 
       if (window.soundCtrl) window.soundCtrl.playPageTurn();
+
+      if (currentStep % 2 === 0) {
+        // Front page flips over to reveal the back page of the same leaf
+        const front = activeLeaf.querySelector('.page-front');
+        const back = activeLeaf.querySelector('.page-back');
+        if (front) front.className = 'page page-front page-passed';
+        if (back) back.className = 'page page-back page-active';
+      } else {
+        // The entire leaf folds over to reveal the next leaf
+        activeLeaf.className = 'leaf leaf-passed';
+        activeLeaf.style.zIndex = Math.floor(currentStep / 2) + 1;
+
+        const nextLeaf = this.leaves[Math.floor(nextStep / 2)];
+        if (nextLeaf) {
+          nextLeaf.className = 'leaf leaf-active';
+          nextLeaf.style.zIndex = 40;
+          const nextFront = nextLeaf.querySelector('.page-front');
+          if (nextFront) nextFront.className = 'page page-front page-active';
+        }
+      }
 
       this.mobileStep = nextStep;
       this.updateControls();
@@ -167,15 +195,30 @@ class CuteFlipBook {
       if (this.mobileStep <= 0) return;
       this.isAnimating = true;
 
-      const prevStep = this.mobileStep - 1;
-      const returningPage = this.pages[prevStep];
-
-      // Entire previous page flips in 3D from the left back onto top
-      returningPage.style.zIndex = 35;
-      returningPage.classList.remove('mobile-passed');
-      returningPage.classList.add('mobile-active');
+      const currentStep = this.mobileStep;
+      const prevStep = currentStep - 1;
 
       if (window.soundCtrl) window.soundCtrl.playPageTurn();
+
+      if (currentStep % 2 === 1) {
+        // Back page to front page of the same leaf
+        const activeLeaf = this.leaves[Math.floor(currentStep / 2)];
+        const front = activeLeaf.querySelector('.page-front');
+        const back = activeLeaf.querySelector('.page-back');
+        if (front) front.className = 'page page-front page-active';
+        if (back) back.className = 'page page-back page-upcoming';
+      } else {
+        // Previous leaf folds back in from the left
+        const prevLeaf = this.leaves[Math.floor(prevStep / 2)];
+        if (prevLeaf) {
+          prevLeaf.className = 'leaf leaf-active';
+          prevLeaf.style.zIndex = 40;
+          const prevFront = prevLeaf.querySelector('.page-front');
+          const prevBack = prevLeaf.querySelector('.page-back');
+          if (prevFront) prevFront.className = 'page page-front page-passed';
+          if (prevBack) prevBack.className = 'page page-back page-active';
+        }
+      }
 
       this.mobileStep = prevStep;
       this.updateControls();
@@ -284,7 +327,8 @@ class CuteFlipBook {
     }
 
     // Page tap / click interactions
-    this.pages.forEach((page, index) => {
+    const allPages = Array.from(document.querySelectorAll('.page'));
+    allPages.forEach((page) => {
       page.addEventListener('click', (e) => {
         if (e.target.closest('button') && !e.target.closest('.corner-curl')) return;
 
