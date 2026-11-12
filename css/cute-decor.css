@@ -172,6 +172,21 @@ body {
   border-color: #ff85a1;
 }
 
+.cute-pill-btn.active-music {
+  background: #ffffff;
+  border-color: #ff85a1;
+  box-shadow: 0 4px 14px rgba(255, 107, 139, 0.35);
+}
+.cute-pill-btn.active-music .music-icon {
+  display: inline-block;
+  animation: musicBob 1.6s ease-in-out infinite alternate;
+}
+@keyframes musicBob {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-2px) rotate(8deg); }
+  100% { transform: translateY(1px) rotate(-6deg); }
+}
+
 /* Washi Tape Aesthetics */
 .washi-tape {
   position: absolute;

@@ -16,6 +16,7 @@ class CuteFlipBook {
     this.nextBtn = document.getElementById('nextBtn');
     this.ribbonLabel = document.getElementById('ribbonLabel');
     this.audioToggleBtn = document.getElementById('audioToggleBtn');
+    this.musicToggleBtn = document.getElementById('musicToggleBtn');
 
     this.init();
   }
@@ -322,6 +323,17 @@ class CuteFlipBook {
     if (openBtn) {
       openBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        if (window.soundCtrl && !window.soundCtrl.musicPlaying) {
+          window.soundCtrl.startMusic();
+          if (this.musicToggleBtn) {
+            const icon = this.musicToggleBtn.querySelector('.music-icon');
+            const text = this.musicToggleBtn.querySelector('.music-text');
+            if (icon) icon.textContent = '🎵';
+            if (text) text.textContent = 'Music On';
+            this.musicToggleBtn.classList.add('active-music');
+            this.musicToggleBtn.style.opacity = '1';
+          }
+        }
         this.flipNext();
       });
     }
@@ -398,21 +410,43 @@ class CuteFlipBook {
       }, { passive: true });
     }
 
-    // Audio Toggle Button
+    // Music Toggle Button
+    if (this.musicToggleBtn) {
+      this.musicToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!window.soundCtrl) return;
+        const isPlaying = window.soundCtrl.toggleMusic();
+        const icon = this.musicToggleBtn.querySelector('.music-icon');
+        const text = this.musicToggleBtn.querySelector('.music-text');
+        if (isPlaying) {
+          if (icon) icon.textContent = '🎵';
+          if (text) text.textContent = 'Music On';
+          this.musicToggleBtn.classList.add('active-music');
+          this.musicToggleBtn.style.opacity = '1';
+        } else {
+          if (icon) icon.textContent = '🔇';
+          if (text) text.textContent = 'Music Off';
+          this.musicToggleBtn.classList.remove('active-music');
+          this.musicToggleBtn.style.opacity = '0.6';
+        }
+      });
+    }
+
+    // Audio FX Toggle Button
     if (this.audioToggleBtn) {
       this.audioToggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         if (!window.soundCtrl) return;
-        const isMuted = window.soundCtrl.toggleMute();
+        const enabled = window.soundCtrl.toggleEffects();
         const icon = this.audioToggleBtn.querySelector('.audio-icon');
         const text = this.audioToggleBtn.querySelector('.audio-text');
-        if (isMuted) {
-          if (icon) icon.textContent = '🔇';
-          if (text) text.textContent = 'Muted';
+        if (!enabled) {
+          if (icon) icon.textContent = '🔕';
+          if (text) text.textContent = 'FX Off';
           this.audioToggleBtn.style.opacity = '0.6';
         } else {
           if (icon) icon.textContent = '🔔';
-          if (text) text.textContent = 'Sound On';
+          if (text) text.textContent = 'FX On';
           this.audioToggleBtn.style.opacity = '1';
           window.soundCtrl.playPop();
         }
