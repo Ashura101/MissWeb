@@ -20,14 +20,14 @@
 @media (max-width: 720px) {
   :root {
     --book-width: min(340px, 88vw);
-    --book-height: min(520px, 64dvh);
+    --book-height: min(500px, 58dvh);
   }
 }
 
 @media (max-width: 380px) {
   :root {
     --book-width: 90vw;
-    --book-height: min(490px, 63dvh);
+    --book-height: min(470px, 57dvh);
   }
 }
 
@@ -256,8 +256,8 @@
 ========================================= */
 @media (max-width: 720px) {
   .book-stage {
-    padding: 10px 0;
-    min-height: calc(var(--book-height) + 40px);
+    padding: 10px 0 16px 0;
+    min-height: calc(var(--book-height) + 110px);
     perspective: 2000px;
   }
 

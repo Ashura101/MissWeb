@@ -114,6 +114,18 @@ body {
 }
 
 @media (max-width: 720px) {
+  .app-header {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  .brand-badge {
+    font-size: clamp(0.78rem, 3.2vw, 0.88rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex-shrink: 1;
+  }
   .desktop-hint {
     display: none;
   }
@@ -121,6 +133,14 @@ body {
     display: inline;
   }
   .app-footer {
-    padding-bottom: max(60px, calc(env(safe-area-inset-bottom, 10px) + 50px));
+    padding: 8px 14px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
+  }
+}
+
+@media (max-width: 360px) {
+  .top-pill-menu .cute-pill-btn .music-text,
+  .top-pill-menu .cute-pill-btn .audio-text {
+    display: none;
   }
 }

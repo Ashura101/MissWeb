@@ -44,20 +44,31 @@ body {
   }
 }
 
-/* Mobile Fixed Bottom Thumb Navigation */
+/* Mobile Navigation: Positioned comfortably below the booklet */
 @media (max-width: 720px) {
   .nav-paw-container {
-    position: fixed !important;
-    bottom: max(14px, env(safe-area-inset-bottom, 12px)) !important;
-    top: auto !important;
+    position: absolute !important;
+    top: calc(50% + var(--book-height) / 2 + 14px) !important;
+    bottom: auto !important;
     transform: none !important;
-    z-index: 160 !important;
+    z-index: 120 !important;
   }
   .nav-paw-left {
-    left: 18px !important;
+    left: max(14px, calc(50% - var(--book-width) / 2)) !important;
+    right: auto !important;
   }
   .nav-paw-right {
-    right: 18px !important;
+    right: max(14px, calc(50% - var(--book-width) / 2)) !important;
+    left: auto !important;
+  }
+  .paw-btn {
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 14px rgba(255, 107, 139, 0.28);
+  }
+  .paw-btn svg {
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -141,12 +152,22 @@ body {
 
 /* Audio & Settings Cute Pill */
 .top-pill-menu {
-  position: fixed;
-  top: 14px;
-  right: 18px;
-  z-index: 200;
   display: flex;
+  align-items: center;
   gap: 10px;
+  z-index: 200;
+  flex-shrink: 0;
+}
+
+@media (max-width: 720px) {
+  .top-pill-menu {
+    gap: 6px;
+  }
+  .cute-pill-btn {
+    padding: 6px 10px;
+    font-size: 0.74rem;
+    gap: 4px;
+  }
 }
 
 .cute-pill-btn {
