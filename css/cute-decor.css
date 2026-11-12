@@ -44,17 +44,20 @@ body {
   }
 }
 
+/* Mobile Fixed Bottom Thumb Navigation */
 @media (max-width: 720px) {
   .nav-paw-container {
-    top: auto;
-    bottom: -65px;
-    transform: none;
+    position: fixed !important;
+    bottom: max(14px, env(safe-area-inset-bottom, 12px)) !important;
+    top: auto !important;
+    transform: none !important;
+    z-index: 160 !important;
   }
   .nav-paw-left {
-    left: calc(50% - 115px);
+    left: 18px !important;
   }
   .nav-paw-right {
-    right: calc(50% - 115px);
+    right: 18px !important;
   }
 }
 
@@ -74,15 +77,16 @@ body {
   font-family: 'Comfortaa', cursive;
   font-weight: 700;
   font-size: 0.95rem;
+  -webkit-tap-highlight-color: transparent;
 }
 .paw-btn:hover {
-  transform: scale(1.12) translateY(-2px);
+  transform: scale(1.1) translateY(-2px);
   background: #fff5f7;
   border-color: #ff85a1;
   box-shadow: 0 12px 24px rgba(255, 133, 161, 0.5);
 }
 .paw-btn:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
 }
 .paw-btn svg {
   width: 24px;
@@ -94,11 +98,23 @@ body {
   transform: rotate(12deg) scale(1.15);
 }
 
+@media (max-width: 720px) {
+  .paw-btn {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 14px rgba(255, 107, 139, 0.35);
+  }
+  .paw-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 /* Hanging Bookmark Ribbon */
 .bookmark-ribbon {
   position: absolute;
   top: -12px;
-  right: 50px;
+  right: 40px;
   background: linear-gradient(180deg, #ff758c 0%, #ff5277 100%);
   color: white;
   padding: 12px 14px 18px 14px;
@@ -115,23 +131,31 @@ body {
   transform: translateY(4px);
 }
 
+@media (max-width: 720px) {
+  .bookmark-ribbon {
+    right: 22px;
+    padding: 10px 12px 16px 12px;
+    font-size: 0.78rem;
+  }
+}
+
 /* Audio & Settings Cute Pill */
 .top-pill-menu {
   position: fixed;
-  top: 18px;
-  right: 22px;
+  top: 14px;
+  right: 18px;
   z-index: 200;
   display: flex;
   gap: 10px;
 }
 
 .cute-pill-btn {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(8px);
   border: 2px solid #ffd8e0;
   padding: 8px 14px;
   border-radius: 30px;
-  font-size: 0.85rem;
+  font-size: clamp(0.78rem, 3vw, 0.85rem);
   font-weight: 600;
   color: #ff6b8b;
   cursor: pointer;
@@ -140,6 +164,7 @@ body {
   align-items: center;
   gap: 6px;
   transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .cute-pill-btn:hover {
   transform: scale(1.06);
@@ -150,8 +175,8 @@ body {
 /* Washi Tape Aesthetics */
 .washi-tape {
   position: absolute;
-  height: 22px;
-  width: 90px;
+  height: 20px;
+  width: 80px;
   opacity: 0.85;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   z-index: 10;
@@ -159,7 +184,7 @@ body {
 }
 .washi-top-left {
   top: 8px;
-  left: 12px;
+  left: 10px;
   transform: rotate(-4deg);
   background: repeating-linear-gradient(
     45deg,
@@ -171,7 +196,7 @@ body {
 }
 .washi-top-right {
   top: 8px;
-  right: 12px;
+  right: 10px;
   transform: rotate(5deg);
   background: repeating-linear-gradient(
     -45deg,
@@ -204,23 +229,23 @@ body {
 
 /* Page Inner Layout */
 .page-header {
-  margin-top: 10px;
+  margin-top: 6px;
   text-align: center;
 }
 .page-badge {
   display: inline-block;
-  padding: 4px 14px;
-  background: rgba(255, 255, 255, 0.7);
+  padding: 3px 12px;
+  background: rgba(255, 255, 255, 0.75);
   border: 1px dashed rgba(255, 107, 139, 0.4);
   border-radius: 20px;
-  font-size: 0.78rem;
+  font-size: clamp(0.72rem, 2.8vw, 0.78rem);
   color: #ff6b8b;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
 .page-title {
-  margin: 12px 0 6px 0;
-  font-size: 1.65rem;
+  margin: 8px 0 4px 0;
+  font-size: clamp(1.35rem, 5vw, 1.65rem);
   color: #4a3b32;
   font-family: 'Fredoka', 'Quicksand', sans-serif;
   font-weight: 600;
@@ -233,30 +258,35 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 10px 14px;
+  padding: 6px 10px;
 }
 .page-message {
-  font-size: 1.35rem;
-  line-height: 1.7;
+  font-size: clamp(1.15rem, 4vw, 1.35rem);
+  line-height: 1.55;
   color: #5d4a41;
   font-family: 'Caveat', cursive;
-  max-width: 90%;
-  margin: 12px 0;
+  max-width: 95%;
+  margin: 8px 0;
 }
 
 .page-illustration-box {
-  width: 140px;
-  height: 140px;
-  margin: 8px 0;
+  width: clamp(95px, 24vw, 130px);
+  height: clamp(85px, 22vw, 115px);
+  margin: 6px 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.page-illustration-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 
 .page-footer {
   text-align: center;
-  margin-bottom: 4px;
-  font-size: 0.8rem;
+  margin-bottom: 2px;
+  font-size: clamp(0.72rem, 2.8vw, 0.8rem);
   color: #a38c82;
   display: flex;
   justify-content: space-between;
@@ -269,8 +299,8 @@ body {
 }
 .page-hint {
   font-style: italic;
-  font-size: 0.75rem;
-  opacity: 0.75;
+  font-size: clamp(0.68rem, 2.5vw, 0.75rem);
+  opacity: 0.8;
 }
 
 /* Cover Styling */
@@ -283,50 +313,51 @@ body {
   text-align: center;
   border: 2px dashed rgba(255, 150, 140, 0.4);
   border-radius: 12px;
-  padding: 24px;
+  padding: clamp(16px, 4vw, 24px);
   position: relative;
 }
 .cover-badge {
   background: #ff758c;
   color: white;
-  padding: 6px 18px;
+  padding: 5px 16px;
   border-radius: 30px;
-  font-size: 0.82rem;
+  font-size: clamp(0.72rem, 2.8vw, 0.82rem);
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   box-shadow: 0 4px 10px rgba(255, 117, 140, 0.35);
 }
 .cover-title {
-  font-size: 2.3rem;
+  font-size: clamp(1.8rem, 6.5vw, 2.3rem);
   color: #4a2e2b;
   font-family: 'Fredoka', cursive;
-  margin: 8px 0;
+  margin: 6px 0;
   line-height: 1.25;
 }
 .cover-subtitle {
-  font-size: 1.4rem;
+  font-size: clamp(1.15rem, 4vw, 1.4rem);
   color: #7a544f;
   font-family: 'Caveat', cursive;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 .cover-btn-open {
-  margin-top: 20px;
+  margin-top: 14px;
   background: linear-gradient(135deg, #ff85a1 0%, #ff6b8b 100%);
   color: white;
   border: none;
-  padding: 12px 28px;
+  padding: 10px 24px;
   border-radius: 50px;
   font-family: 'Comfortaa', cursive;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 3.5vw, 1rem);
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(255, 107, 139, 0.45);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -webkit-tap-highlight-color: transparent;
 }
 .cover-btn-open:hover {
   transform: scale(1.08) translateY(-2px);
@@ -340,18 +371,30 @@ body {
 /* Bottom-Left Peeking Puppy */
 .puppy-companion {
   position: fixed;
-  bottom: -5px;
+  bottom: -4px;
   left: 20px;
   width: 140px;
   height: 140px;
-  z-index: 150;
+  z-index: 140;
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   filter: drop-shadow(0 6px 12px rgba(90, 50, 40, 0.18));
+  -webkit-tap-highlight-color: transparent;
 }
 .puppy-companion:hover {
   transform: translateY(-16px) scale(1.05);
 }
+
+@media (max-width: 720px) {
+  .puppy-companion {
+    width: 90px;
+    height: 90px;
+    bottom: -2px;
+    left: 8px;
+    z-index: 140;
+  }
+}
+
 .puppy-tail {
   transform-origin: bottom center;
   animation: wagTail 0.75s ease-in-out infinite alternate;
@@ -390,10 +433,21 @@ body {
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   filter: drop-shadow(0 5px 10px rgba(90, 50, 40, 0.15));
+  -webkit-tap-highlight-color: transparent;
 }
 .kitten-companion:hover {
   transform: translateY(-8px) scale(1.08);
 }
+
+@media (max-width: 720px) {
+  .kitten-companion {
+    width: 82px;
+    height: 60px;
+    top: -36px;
+    right: 10px;
+  }
+}
+
 .kitten-tail {
   transform-origin: bottom left;
   animation: curlTail 2.5s ease-in-out infinite alternate;
@@ -446,26 +500,27 @@ body {
   opacity: 1;
 }
 
-/* Send Love Interactive Heart Burst Button on Final Page */
+/* Send Love Interactive Heart Burst Button on Page 5 */
 .btn-send-love {
   background: linear-gradient(135deg, #ff6b8b 0%, #ff85a1 100%);
   color: white;
   border: none;
-  padding: 12px 26px;
+  padding: 10px 22px;
   border-radius: 50px;
   font-family: 'Comfortaa', cursive;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 3.5vw, 1rem);
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(255, 107, 139, 0.45);
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 8px;
+  margin-top: 10px;
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -webkit-tap-highlight-color: transparent;
 }
 .btn-send-love:hover {
-  transform: scale(1.1) translateY(-2px);
+  transform: scale(1.08) translateY(-2px);
   box-shadow: 0 10px 24px rgba(255, 107, 139, 0.6);
 }
 
