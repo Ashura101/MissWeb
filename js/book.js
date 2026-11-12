@@ -4,8 +4,9 @@ class CuteFlipBook {
   constructor() {
     this.bookEl = document.getElementById('flipBook');
     this.leaves = Array.from(document.querySelectorAll('.leaf'));
-    this.totalLeaves = this.leaves.length; // 4 leaves
-    this.totalMobileSteps = this.totalLeaves * 2; // 8 individual pages
+    this.pages = Array.from(document.querySelectorAll('.page'));
+    this.totalLeaves = this.leaves.length; // 4 leaves (desktop)
+    this.totalPages = this.pages.length;   // 8 individual pages (mobile)
     
     this.isMobile = window.innerWidth <= 720;
     this.currentLeaf = 0; // Desktop leaf state (0 to 4)
@@ -40,12 +41,13 @@ class CuteFlipBook {
      DESKTOP RENDERING (2-Page Open Spread)
   ========================================= */
   renderDesktopState() {
-    // Clear mobile-specific classes
-    this.leaves.forEach(leaf => {
-      leaf.classList.remove('mobile-flipped', 'mobile-dismissed');
+    // Clear mobile page classes
+    this.pages.forEach(page => {
+      page.classList.remove('mobile-active', 'mobile-upcoming', 'mobile-passed');
+      page.style.zIndex = '';
     });
 
-    // Update Desktop flipped classes & z-indices
+    // Update Desktop flipped classes & leaf z-indices
     this.leaves.forEach((leaf, i) => {
       if (i < this.currentLeaf) {
         leaf.classList.add('flipped');
@@ -56,7 +58,7 @@ class CuteFlipBook {
       }
     });
 
-    // Closed cover / backbook centering on desktop
+    // Centering offsets on desktop
     if (this.currentLeaf === 0) {
       this.bookEl.classList.add('closed-front');
       this.bookEl.classList.remove('closed-back');
@@ -75,32 +77,29 @@ class CuteFlipBook {
      MOBILE RENDERING (8 Sequential Pages)
   ========================================= */
   renderMobileState() {
-    // Clear desktop-specific classes
+    // Clear desktop leaf classes
     this.bookEl.classList.remove('closed-front', 'closed-back');
-    this.leaves.forEach(leaf => leaf.classList.remove('flipped'));
+    this.leaves.forEach(leaf => {
+      leaf.classList.remove('flipped');
+      leaf.style.zIndex = '1';
+    });
 
-    const activeLeafIdx = Math.floor(this.mobileStep / 2);
-    const isBackOfLeaf = this.mobileStep % 2 === 1;
+    // Manage all 8 pages as independent full-screen cards
+    this.pages.forEach((page, i) => {
+      page.classList.remove('mobile-active', 'mobile-upcoming', 'mobile-passed');
 
-    this.leaves.forEach((leaf, i) => {
-      if (i < activeLeafIdx) {
-        // Earlier leaves are dismissed to the left
-        leaf.classList.remove('mobile-flipped');
-        leaf.classList.add('mobile-dismissed');
-        leaf.style.zIndex = i + 1;
-      } else if (i === activeLeafIdx) {
-        // Current active leaf
-        leaf.classList.remove('mobile-dismissed');
-        if (isBackOfLeaf) {
-          leaf.classList.add('mobile-flipped'); // Flip to show back face centered
-        } else {
-          leaf.classList.remove('mobile-flipped'); // Show front face
-        }
-        leaf.style.zIndex = 30;
+      if (i < this.mobileStep) {
+        // Turned pages: folded away to the left stack
+        page.classList.add('mobile-passed');
+        page.style.zIndex = i + 1;
+      } else if (i === this.mobileStep) {
+        // Current active page: sitting flat on top
+        page.classList.add('mobile-active');
+        page.style.zIndex = 30;
       } else {
-        // Upcoming leaves waiting underneath
-        leaf.classList.remove('mobile-flipped', 'mobile-dismissed');
-        leaf.style.zIndex = 20 - i;
+        // Upcoming pages: stacked underneath
+        page.classList.add('mobile-upcoming');
+        page.style.zIndex = 20 - i;
       }
     });
 
@@ -114,13 +113,35 @@ class CuteFlipBook {
     if (this.isAnimating) return;
 
     if (this.isMobile) {
-      if (this.mobileStep >= this.totalMobileSteps - 1) return;
+      if (this.mobileStep >= this.totalPages - 1) return;
       this.isAnimating = true;
-      this.mobileStep++;
+
+      const turningPage = this.pages[this.mobileStep];
+      const nextStep = this.mobileStep + 1;
+      const nextPage = this.pages[nextStep];
+
+      // Entire visible page lifts and folds over in 3D around its left hinge
+      turningPage.style.zIndex = 35;
+      turningPage.classList.remove('mobile-active');
+      turningPage.classList.add('mobile-passed');
+
+      if (nextPage) {
+        nextPage.classList.add('mobile-active');
+        nextPage.classList.remove('mobile-upcoming');
+        nextPage.style.zIndex = 30;
+      }
+
       if (window.soundCtrl) window.soundCtrl.playPageTurn();
-      this.renderMobileState();
-      setTimeout(() => { this.isAnimating = false; }, 750);
+
+      this.mobileStep = nextStep;
+      this.updateControls();
+
+      setTimeout(() => {
+        this.renderMobileState();
+        this.isAnimating = false;
+      }, 650);
     } else {
+      // Desktop
       if (this.currentLeaf >= this.totalLeaves) return;
       this.isAnimating = true;
       const leaf = this.leaves[this.currentLeaf];
@@ -145,11 +166,26 @@ class CuteFlipBook {
     if (this.isMobile) {
       if (this.mobileStep <= 0) return;
       this.isAnimating = true;
-      this.mobileStep--;
+
+      const prevStep = this.mobileStep - 1;
+      const returningPage = this.pages[prevStep];
+
+      // Entire previous page flips in 3D from the left back onto top
+      returningPage.style.zIndex = 35;
+      returningPage.classList.remove('mobile-passed');
+      returningPage.classList.add('mobile-active');
+
       if (window.soundCtrl) window.soundCtrl.playPageTurn();
-      this.renderMobileState();
-      setTimeout(() => { this.isAnimating = false; }, 750);
+
+      this.mobileStep = prevStep;
+      this.updateControls();
+
+      setTimeout(() => {
+        this.renderMobileState();
+        this.isAnimating = false;
+      }, 650);
     } else {
+      // Desktop
       if (this.currentLeaf <= 0) return;
       this.isAnimating = true;
       this.currentLeaf--;
@@ -178,7 +214,7 @@ class CuteFlipBook {
       if (this.ribbonLabel) {
         if (this.mobileStep === 0) {
           this.ribbonLabel.textContent = 'Cover';
-        } else if (this.mobileStep === this.totalMobileSteps - 1) {
+        } else if (this.mobileStep === this.totalPages - 1) {
           this.ribbonLabel.textContent = 'End 🐾';
         } else {
           this.ribbonLabel.textContent = `${this.mobileStep} / 6`;
@@ -191,8 +227,8 @@ class CuteFlipBook {
         this.prevBtn.style.pointerEvents = this.mobileStep === 0 ? 'none' : 'auto';
       }
       if (this.nextBtn) {
-        this.nextBtn.style.opacity = this.mobileStep === this.totalMobileSteps - 1 ? '0.3' : '1';
-        this.nextBtn.style.pointerEvents = this.mobileStep === this.totalMobileSteps - 1 ? 'none' : 'auto';
+        this.nextBtn.style.opacity = this.mobileStep === this.totalPages - 1 ? '0.3' : '1';
+        this.nextBtn.style.pointerEvents = this.mobileStep === this.totalPages - 1 ? 'none' : 'auto';
       }
     } else {
       // Desktop ribbon label (Leaves 0 to 4)
@@ -247,14 +283,14 @@ class CuteFlipBook {
       });
     }
 
-    // Leaf click interactions
-    this.leaves.forEach((leaf, index) => {
-      leaf.addEventListener('click', (e) => {
+    // Page tap / click interactions
+    this.pages.forEach((page, index) => {
+      page.addEventListener('click', (e) => {
         if (e.target.closest('button') && !e.target.closest('.corner-curl')) return;
 
         if (this.isMobile) {
-          // On mobile: clicking right half flips next, left half flips prev
-          const rect = leaf.getBoundingClientRect();
+          // On mobile: tapping right side flips next, left side flips prev
+          const rect = page.getBoundingClientRect();
           const clickX = e.clientX - rect.left;
           if (clickX > rect.width * 0.4) {
             this.flipNext();
@@ -263,9 +299,11 @@ class CuteFlipBook {
           }
         } else {
           // On desktop
-          if (index === this.currentLeaf) {
+          const leaf = page.closest('.leaf');
+          const leafIndex = this.leaves.indexOf(leaf);
+          if (leafIndex === this.currentLeaf) {
             this.flipNext();
-          } else if (index === this.currentLeaf - 1) {
+          } else if (leafIndex === this.currentLeaf - 1) {
             this.flipPrev();
           }
         }
@@ -337,7 +375,7 @@ class CuteFlipBook {
       });
     }
 
-    // Responsive Window Resize Handler
+    // Window Resize Handler
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
@@ -346,10 +384,8 @@ class CuteFlipBook {
         const nowMobile = window.innerWidth <= 720;
         if (wasMobile !== nowMobile) {
           if (nowMobile) {
-            // Map currentLeaf to mobileStep
-            this.mobileStep = Math.min(this.currentLeaf * 2, this.totalMobileSteps - 1);
+            this.mobileStep = Math.min(this.currentLeaf * 2, this.totalPages - 1);
           } else {
-            // Map mobileStep to currentLeaf
             this.currentLeaf = Math.min(Math.ceil(this.mobileStep / 2), this.totalLeaves);
           }
           this.applyMode();
