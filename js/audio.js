@@ -62,6 +62,9 @@ class SoundController {
   }
 
   resumeContext() {
+    if (!this.ctx) {
+      this.initAudioContext();
+    }
     if (this.ctx && this.ctx.state === 'suspended') {
       this.ctx.resume();
     }

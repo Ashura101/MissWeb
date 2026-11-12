@@ -17,6 +17,7 @@ class CuteFlipBook {
     this.ribbonLabel = document.getElementById('ribbonLabel');
     this.audioToggleBtn = document.getElementById('audioToggleBtn');
     this.musicToggleBtn = document.getElementById('musicToggleBtn');
+    this.userMutedMusic = false;
 
     this.init();
   }
@@ -129,7 +130,23 @@ class CuteFlipBook {
   /* =========================================
      NAVIGATION: NEXT & PREVIOUS
   ========================================= */
+  ensureMusicPlaying() {
+    if (this.userMutedMusic) return;
+    if (window.soundCtrl && !window.soundCtrl.musicPlaying) {
+      window.soundCtrl.startMusic();
+      if (this.musicToggleBtn) {
+        const icon = this.musicToggleBtn.querySelector('.music-icon');
+        const text = this.musicToggleBtn.querySelector('.music-text');
+        if (icon) icon.textContent = '🎵';
+        if (text) text.textContent = 'Music On';
+        this.musicToggleBtn.classList.add('active-music');
+        this.musicToggleBtn.style.opacity = '1';
+      }
+    }
+  }
+
   flipNext() {
+    this.ensureMusicPlaying();
     if (this.isAnimating) return;
 
     if (this.isMobile) {
@@ -190,6 +207,7 @@ class CuteFlipBook {
   }
 
   flipPrev() {
+    this.ensureMusicPlaying();
     if (this.isAnimating) return;
 
     if (this.isMobile) {
@@ -323,17 +341,6 @@ class CuteFlipBook {
     if (openBtn) {
       openBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (window.soundCtrl && !window.soundCtrl.musicPlaying) {
-          window.soundCtrl.startMusic();
-          if (this.musicToggleBtn) {
-            const icon = this.musicToggleBtn.querySelector('.music-icon');
-            const text = this.musicToggleBtn.querySelector('.music-text');
-            if (icon) icon.textContent = '🎵';
-            if (text) text.textContent = 'Music On';
-            this.musicToggleBtn.classList.add('active-music');
-            this.musicToggleBtn.style.opacity = '1';
-          }
-        }
         this.flipNext();
       });
     }
@@ -416,6 +423,7 @@ class CuteFlipBook {
         e.stopPropagation();
         if (!window.soundCtrl) return;
         const isPlaying = window.soundCtrl.toggleMusic();
+        this.userMutedMusic = !isPlaying;
         const icon = this.musicToggleBtn.querySelector('.music-icon');
         const text = this.musicToggleBtn.querySelector('.music-text');
         if (isPlaying) {
