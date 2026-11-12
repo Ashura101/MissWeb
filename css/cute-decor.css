@@ -408,6 +408,57 @@ body {
   line-height: 1.2;
 }
 
+.page-emojis {
+  font-size: clamp(1.05rem, 3.4vw, 1.25rem);
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    margin-bottom: 2px;
+  }
+  .page-title {
+    margin: 4px 0 2px 0;
+    font-size: clamp(1.2rem, 4.2vw, 1.45rem);
+  }
+  .page-badge {
+    padding: 2px 10px;
+    font-size: 0.72rem;
+  }
+  .page-body {
+    padding: 2px 6px;
+  }
+  .page-message {
+    font-size: clamp(0.96rem, 3.2vw, 1.12rem);
+    line-height: 1.42;
+    margin: 3px 0 2px 0;
+  }
+  .page-emojis {
+    font-size: 1.05rem;
+    margin-top: 1px;
+  }
+  .polaroid-frame {
+    max-width: clamp(120px, 32vw, 142px);
+    padding: 6px 6px 12px 6px;
+    margin: 2px auto 4px auto;
+  }
+  .polaroid-tape {
+    width: 48px;
+    height: 14px;
+    top: -7px;
+  }
+  .polaroid-caption {
+    margin-top: 4px;
+    font-size: clamp(0.92rem, 3.2vw, 1.05rem);
+  }
+  .page-footer {
+    margin-top: 2px;
+    margin-bottom: 0;
+    font-size: 0.72rem;
+  }
+}
+
 /* Cover Styling */
 .cover-content {
   height: 100%;
