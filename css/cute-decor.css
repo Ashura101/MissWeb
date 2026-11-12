@@ -410,8 +410,13 @@ body {
   }
 }
 
+.puppy-companion svg {
+  overflow: visible;
+}
+
 .puppy-tail {
-  transform-origin: bottom center;
+  transform-box: fill-box;
+  transform-origin: bottom left;
   animation: wagTail 0.75s ease-in-out infinite alternate;
 }
 @keyframes wagTail {
@@ -463,7 +468,12 @@ body {
   }
 }
 
+.kitten-companion svg {
+  overflow: visible;
+}
+
 .kitten-tail {
+  transform-box: fill-box;
   transform-origin: bottom left;
   animation: curlTail 2.5s ease-in-out infinite alternate;
 }
