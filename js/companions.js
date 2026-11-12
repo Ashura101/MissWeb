@@ -151,6 +151,29 @@ function initPetInteractions() {
       }, 400);
     });
   }
+
+  // Page 6 Polaroid Memory Photo Reaction
+  const polaroid = document.getElementById('polaroidMemory');
+  if (polaroid) {
+    polaroid.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (window.soundCtrl) {
+        window.soundCtrl.playPop();
+      }
+      polaroid.style.transform = 'rotate(2.5deg) scale(1.08)';
+      setTimeout(() => {
+        polaroid.style.transform = '';
+      }, 350);
+
+      const rect = polaroid.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2;
+      const polaroidSparkles = ['💖', '✨', '🌸', '🐾', '⭐', '🦷'];
+      for (let i = 0; i < 14; i++) {
+        createBurstParticle(originX, originY, polaroidSparkles[i % polaroidSparkles.length], 100, 40);
+      }
+    });
+  }
 }
 
 /* =========================================
@@ -172,7 +195,7 @@ function initHeartBurst() {
     const originY = rect.top + rect.height / 2;
 
     for (let i = 0; i < 28; i++) {
-      createBurstParticle(originX, originY, heartIcons[i % heartIcons.length]);
+      createBurstParticle(originX, originY, heartIcons[i % heartIcons.length], 180, 80);
     }
 
     // Button sweet bounce
@@ -181,29 +204,29 @@ function initHeartBurst() {
       btn.style.transform = '';
     }, 250);
   });
+}
 
-  function createBurstParticle(x, y, char) {
-    const el = document.createElement('div');
-    el.className = 'floating-particle';
-    el.textContent = char;
-    el.style.left = `${x}px`;
-    el.style.top = `${y}px`;
-    el.style.fontSize = `${Math.random() * 16 + 18}px`;
+function createBurstParticle(x, y, char, maxDist = 180, minDist = 80) {
+  const el = document.createElement('div');
+  el.className = 'floating-particle';
+  el.textContent = char;
+  el.style.left = `${x}px`;
+  el.style.top = `${y}px`;
+  el.style.fontSize = `${Math.random() * 16 + 18}px`;
 
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 180 + 80;
-    const tx = Math.cos(angle) * distance;
-    const ty = Math.sin(angle) * distance - 80;
-    const tr = (Math.random() - 0.5) * 80;
+  const angle = Math.random() * Math.PI * 2;
+  const distance = Math.random() * maxDist + minDist;
+  const tx = Math.cos(angle) * distance;
+  const ty = Math.sin(angle) * distance - 80;
+  const tr = (Math.random() - 0.5) * 80;
 
-    el.style.setProperty('--tx', `${tx}px`);
-    el.style.setProperty('--ty', `${ty}px`);
-    el.style.setProperty('--tr', `${tr}deg`);
+  el.style.setProperty('--tx', `${tx}px`);
+  el.style.setProperty('--ty', `${ty}px`);
+  el.style.setProperty('--tr', `${tr}deg`);
 
-    document.body.appendChild(el);
+  document.body.appendChild(el);
 
-    setTimeout(() => {
-      el.remove();
-    }, 1600);
-  }
+  setTimeout(() => {
+    el.remove();
+  }, 1600);
 }
