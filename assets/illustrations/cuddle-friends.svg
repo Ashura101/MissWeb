@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 140" width="100%" height="100%">
+  <!-- Glowing Heart on Top -->
+  <path d="M 80 18 C 80 12 88 10 92 15 C 96 20 88 28 80 34 C 72 28 64 20 68 15 C 72 10 80 12 80 18 Z" fill="#ff758c"/>
+
+  <!-- Puppy and Kitten Cuddling Body -->
+  <!-- Puppy on Left -->
+  <g>
+    <!-- Tail -->
+    <path d="M 42 108 C 28 108 24 96 30 88" stroke="#f4a261" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <ellipse cx="62" cy="95" rx="22" ry="20" fill="#f4a261"/>
+    <!-- Floppy Ear -->
+    <path d="M 44 65 C 32 55 30 78 38 86 Z" fill="#e76f51"/>
+    <!-- Puppy Head -->
+    <ellipse cx="60" cy="72" rx="22" ry="19" fill="#f4a261"/>
+    <ellipse cx="60" cy="78" rx="8" ry="10" fill="#fffdfa"/>
+    <!-- Sleeping Eye -->
+    <path d="M 50 72 Q 54 75 58 72" stroke="#4a3b32" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- Nose -->
+    <ellipse cx="60" cy="75" rx="3.5" ry="2.5" fill="#4a3b32"/>
+    <circle cx="48" cy="77" r="3.5" fill="#ffb4a2" opacity="0.6"/>
+  </g>
+
+  <!-- Kitten on Right leaning head on Puppy -->
+  <g>
+    <!-- Tail -->
+    <path d="M 118 108 C 132 108 136 96 130 88" stroke="#6c584c" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <!-- Body -->
+    <ellipse cx="98" cy="95" rx="22" ry="20" fill="#fffdfa" stroke="#e0d6ce" stroke-width="1.5"/>
+    <path d="M 95 85 C 105 80 115 85 110 98 C 102 105 92 95 95 85 Z" fill="#f4a261"/>
+    <!-- Ears -->
+    <polygon points="98,58 92,45 106,52" fill="#f4a261"/>
+    <polygon points="106,53 118,45 114,58" fill="#6c584c"/>
+    <!-- Kitten Head -->
+    <ellipse cx="96" cy="70" rx="20" ry="18" fill="#fffdfa" stroke="#e0d6ce" stroke-width="1.5"/>
+    <!-- Sleeping Eye -->
+    <path d="M 102 70 Q 106 73 110 70" stroke="#4a3b32" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <!-- Nose & Mouth -->
+    <polygon points="99,74 101,74 100,75.5" fill="#ff758c"/>
+    <circle cx="112" cy="74" r="3.5" fill="#ffb4a2" opacity="0.6"/>
+    <!-- Whiskers -->
+    <line x1="110" y1="72" x2="120" y2="70" stroke="#a38c82" stroke-width="1.2"/>
+    <line x1="110" y1="75" x2="119" y2="77" stroke="#a38c82" stroke-width="1.2"/>
+  </g>
+
+  <!-- Paws together in center hugging -->
+  <ellipse cx="78" cy="98" rx="8" ry="6" fill="#fffdfa" stroke="#f4a261" stroke-width="1.5"/>
+  <ellipse cx="84" cy="98" rx="8" ry="6" fill="#fffdfa" stroke="#e0d6ce" stroke-width="1.5"/>
+</svg>

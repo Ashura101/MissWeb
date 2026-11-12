@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A Little Book For You 🐾</title>
+  
+  <!-- Cute Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Comfortaa:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Patrick+Hand&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/book.css">
+  <link rel="stylesheet" href="css/cute-decor.css">
+</head>
+<body>
+
+  <!-- Floating Background Particles Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Top Navigation & Sound Bar -->
+  <header class="app-header">
+    <div class="brand-badge">
+      <span>🐾</span>
+      <span>Little Cozy Booklet</span>
+    </div>
+
+    <div class="top-pill-menu">
+      <button id="audioToggleBtn" class="cute-pill-btn" aria-label="Toggle Sound">
+        <span class="audio-icon">🔔</span>
+        <span class="audio-text">Sound On</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Flipbook Stage -->
+  <main class="main-content">
+    <div class="book-stage">
+
+      <!-- Left Paw Navigation Button -->
+      <div class="nav-paw-container nav-paw-left">
+        <button id="prevBtn" class="paw-btn" aria-label="Previous Page">
+          <svg viewBox="0 0 32 32"><path d="M 16 14 C 11 14 8 18 10 23 C 12 28 20 28 22 23 C 24 18 21 14 16 14 Z M 8 12 C 6.5 12 5.5 10 6 8.5 C 6.5 7 8.5 7 9.5 8.5 C 10.5 10 9.5 12 8 12 Z M 13 8 C 11.5 8 10.5 6 11 4.5 C 11.5 3 13.5 3 14.5 4.5 C 15.5 6 14.5 8 13 8 Z M 19 8 C 17.5 8 16.5 6 17 4.5 C 17.5 3 19.5 3 20.5 4.5 C 21.5 6 20.5 8 19 8 Z M 24 12 C 22.5 12 21.5 10 22 8.5 C 22.5 7 24.5 7 25.5 8.5 C 26.5 10 25.5 12 24 12 Z" /></svg>
+          <span>Prev</span>
+        </button>
+      </div>
+
+      <!-- 3D Flip Book -->
+      <div class="book" id="flipBook">
+
+        <!-- Hanging Bookmark Ribbon -->
+        <div class="bookmark-ribbon" id="ribbonBookmark">
+          <span id="ribbonLabel">Cover</span>
+        </div>
+
+        <!-- Top-Right Kitten Companion perched on the book -->
+        <div class="kitten-companion" title="Click me for purrs!">
+          <div class="pet-bubble" id="kittenBubble">Purrr~ 💖</div>
+          <!-- Calico Kitten SVG -->
+          <svg viewBox="0 0 140 100" width="100%" height="100%">
+            <g class="kitten-body">
+              <path class="kitten-tail" d="M 28 65 C 10 65 4 45 14 36 C 22 28 26 40 22 48 C 18 56 25 60 35 60 Z" fill="#e76f51"/>
+              <ellipse cx="65" cy="62" rx="42" ry="26" fill="#fffdfa" stroke="#e0d6ce" stroke-width="1.5"/>
+              <path d="M 40 48 C 45 42 58 40 60 52 C 60 62 48 64 38 60 Z" fill="#f4a261"/>
+              <path d="M 80 50 C 88 44 98 48 95 58 C 92 65 82 66 78 58 Z" fill="#6c584c"/>
+              <ellipse cx="50" cy="82" rx="10" ry="7" fill="#fffdfa" stroke="#e0d6ce" stroke-width="1.5"/>
+              <ellipse cx="70" cy="82" rx="10" ry="7" fill="#fffdfa" stroke="#e0d6ce" stroke-width="1.5"/>
+            </g>
+            <g class="kitten-head">
+              <polygon class="kitten-ear-left" points="75,32 62,8 90,20" fill="#f4a261"/>
+              <polygon points="73,28 66,14 84,21" fill="#ffccd5"/>
+              <polygon class="kitten-ear-right" points="110,32 125,8 100,20" fill="#6c584c"/>
+              <polygon points="112,28 120,14 104,21" fill="#ffccd5"/>
+              <ellipse cx="94" cy="42" rx="28" ry="24" fill="#fffdfa" stroke="#e0d6ce" stroke-width="1.5"/>
+              <path d="M 75 25 C 80 20 92 24 90 35 C 85 40 76 35 75 25 Z" fill="#f4a261"/>
+              <path d="M 82 42 Q 87 47 92 42" stroke="#4a3b32" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+              <path d="M 100 42 Q 105 47 110 42" stroke="#4a3b32" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+              <polygon points="95,47 98,47 96.5,49" fill="#ff758c"/>
+              <path d="M 94.5 51 Q 96.5 53 98.5 51" stroke="#4a3b32" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+              <line x1="74" y1="46" x2="62" y2="44" stroke="#a38c82" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="75" y1="49" x2="63" y2="51" stroke="#a38c82" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="116" y1="46" x2="128" y2="44" stroke="#a38c82" stroke-width="1.4" stroke-linecap="round"/>
+              <line x1="115" y1="49" x2="127" y2="51" stroke="#a38c82" stroke-width="1.4" stroke-linecap="round"/>
+              <ellipse cx="80" cy="47" rx="5" ry="3.5" fill="#ffb4a2" opacity="0.6"/>
+              <ellipse cx="112" cy="47" rx="5" ry="3.5" fill="#ffb4a2" opacity="0.6"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Book Backing Layers (left & right insides) -->
+        <div class="book-backplate-left"></div>
+        <div class="book-backplate-right"></div>
+
+        <!-- ================= LEAF 0: FRONT COVER & PAGE 1 ================= -->
+        <div class="leaf" id="leaf-0">
+          <!-- FRONT: Book Cover -->
+          <div class="page page-front cover-page theme-cover">
+            <div class="cover-content">
+              <span class="cover-badge">A Special Message 🐾</span>
+              <h1 class="cover-title">A Little Book<br>For You</h1>
+              <p class="cover-subtitle">A warm hug in a few sweet pages ✨</p>
+              
+              <div class="page-illustration-box">
+                <img src="assets/illustrations/cuddle-friends.svg" alt="Puppy and kitten cuddling" width="130" height="110">
+              </div>
+
+              <button class="cover-btn-open" id="btnOpenBook">
+                <span>Open Book</span>
+                <span style="font-size: 1.2rem;">🌸</span>
+              </button>
+            </div>
+            <div class="corner-curl" title="Turn page"></div>
+          </div>
+
+          <!-- BACK: Inside Page 1 -->
+          <div class="page page-back theme-strawberry">
+            <div class="washi-tape washi-top-left"></div>
+            <div class="page-header">
+              <span class="page-badge">NOTE 01</span>
+              <h2 class="page-title">Gentle Reminder</h2>
+            </div>
+            <div class="page-body">
+              <div class="page-illustration-box">
+                <img src="assets/illustrations/sleepy-kitten.svg" alt="Sleepy kitten on cloud" width="130" height="110">
+              </div>
+              <p class="page-message">
+                "Just in case no one told you today: you are doing so much better than you give yourself credit for. Take a deep, slow breath—you are enough, exactly as you are."
+              </p>
+            </div>
+            <div class="page-footer">
+              <span class="page-hint">Click corner or arrow to turn</span>
+              <span class="page-num">01</span>
+            </div>
+            <div class="corner-curl" title="Turn page"></div>
+          </div>
+        </div>
+
+        <!-- ================= LEAF 1: PAGE 2 & PAGE 3 ================= -->
+        <div class="leaf" id="leaf-1">
+          <!-- FRONT: Page 2 -->
+          <div class="page page-front theme-honey">
+            <div class="washi-tape washi-top-right"></div>
+            <div class="page-header">
+              <span class="page-badge">NOTE 02</span>
+              <h2 class="page-title">Little Sunshine</h2>
+            </div>
+            <div class="page-body">
+              <div class="page-illustration-box">
+                <img src="assets/illustrations/playful-puppy.svg" alt="Playful puppy with flower" width="130" height="110">
+              </div>
+              <p class="page-message">
+                "You bring a gentle, quiet brightness into the world that you might not even notice. Ordinary days feel a little warmer and happier just because you're in them."
+              </p>
+            </div>
+            <div class="page-footer">
+              <span class="page-num">02</span>
+              <span class="page-hint">Keep smiling 🌻</span>
+            </div>
+            <div class="corner-curl" title="Turn page"></div>
+          </div>
+
+          <!-- BACK: Page 3 -->
+          <div class="page page-back theme-lavender">
+            <div class="washi-tape washi-top-left"></div>
+            <div class="page-header">
+              <span class="page-badge">NOTE 03</span>
+              <h2 class="page-title">Cozy Moments</h2>
+            </div>
+            <div class="page-body">
+              <div class="page-illustration-box">
+                <img src="assets/illustrations/cozy-tea.svg" alt="Cozy warm cup of tea" width="130" height="110">
+              </div>
+              <p class="page-message">
+                "Whenever the world feels a little too loud or hurried, give yourself permission to pause. Make a warm cup of something sweet and let your mind rest."
+              </p>
+            </div>
+            <div class="page-footer">
+              <span class="page-hint">Take your time ☕</span>
+              <span class="page-num">03</span>
+            </div>
+            <div class="corner-curl" title="Turn page"></div>
+          </div>
+        </div>
+
+        <!-- ================= LEAF 2: PAGE 4 & PAGE 5 ================= -->
+        <div class="leaf" id="leaf-2">
+          <!-- FRONT: Page 4 -->
+          <div class="page page-front theme-mint">
+            <div class="washi-tape washi-top-right"></div>
+            <div class="page-header">
+              <span class="page-badge">NOTE 04</span>
+              <h2 class="page-title">Chasing Joy</h2>
+            </div>
+            <div class="page-body">
+              <div class="page-illustration-box">
+                <img src="assets/illustrations/kitten-yarn.svg" alt="Kitten playing with yarn" width="130" height="110">
+              </div>
+              <p class="page-message">
+                "Don't forget to celebrate the little victories—the quiet smiles, the tiny steps forward, and all the small lovely moments that make life beautiful."
+              </p>
+            </div>
+            <div class="page-footer">
+              <span class="page-num">04</span>
+              <span class="page-hint">Always cheering for you 🐾</span>
+            </div>
+            <div class="corner-curl" title="Turn page"></div>
+          </div>
+
+          <!-- BACK: Page 5 -->
+          <div class="page page-back theme-peach">
+            <div class="washi-tape washi-top-left"></div>
+            <div class="page-header">
+              <span class="page-badge">NOTE 05</span>
+              <h2 class="page-title">Sent With Love</h2>
+            </div>
+            <div class="page-body">
+              <div class="page-illustration-box">
+                <img src="assets/illustrations/cuddle-friends.svg" alt="Puppy and kitten friends" width="130" height="110">
+              </div>
+              <p class="page-message">
+                "No matter where you are or what today brings, remember you are deeply appreciated, cared for, and always in my thoughts."
+              </p>
+              
+              <!-- Interactive Heart Burst Button -->
+              <button class="btn-send-love" id="btnSendLove">
+                <span>Tap for Love!</span>
+                <span>💖</span>
+              </button>
+            </div>
+            <div class="page-footer">
+              <span class="page-hint">Tap heart above! ✨</span>
+              <span class="page-num">05</span>
+            </div>
+            <div class="corner-curl" title="Turn page"></div>
+          </div>
+        </div>
+
+        <!-- ================= LEAF 3: PAGE 6 & BACK COVER ================= -->
+        <div class="leaf" id="leaf-3">
+          <!-- FRONT: Page 6 (Personal Note / Memory Photo Frame) -->
+          <div class="page page-front theme-strawberry">
+            <div class="washi-tape washi-top-right"></div>
+            <div class="page-header">
+              <span class="page-badge">MEMORIES 🐾</span>
+              <h2 class="page-title">A Little Space</h2>
+            </div>
+            <div class="page-body">
+              <div style="border: 2px dashed #ffb4a2; border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.7); max-width: 90%;">
+                <p style="font-family: 'Caveat', cursive; font-size: 1.45rem; line-height: 1.6; color: #5d4a41;">
+                  "May your days be filled with soft blankets, gentle purrs, warm sunshine, and all the sweet happiness you deserve."
+                </p>
+                <div style="margin-top: 10px; font-size: 1.6rem;">🌸 🐾 💖 🐱 🐶</div>
+              </div>
+            </div>
+            <div class="page-footer">
+              <span class="page-num">06</span>
+              <span class="page-hint">Almost at the end...</span>
+            </div>
+            <div class="corner-curl" title="Turn page"></div>
+          </div>
+
+          <!-- BACK: Back Cover -->
+          <div class="page page-back back-cover-page">
+            <div class="cover-content">
+              <div class="page-illustration-box" style="margin-bottom: 12px;">
+                <img src="assets/illustrations/sleepy-kitten.svg" alt="Sleepy kitten" width="120" height="100">
+              </div>
+              <h2 style="font-family: 'Fredoka', cursive; font-size: 2rem; color: #4a2e2b; margin-bottom: 6px;">The End 🐾</h2>
+              <p style="font-family: 'Caveat', cursive; font-size: 1.4rem; color: #7a544f;">
+                "Hope this brought a little smile to your day."
+              </p>
+              <div style="margin-top: 18px; font-size: 0.85rem; color: #9c6c64; font-weight: 600;">
+                Made with love & warm hugs ✨
+              </div>
+            </div>
+            <div class="corner-curl" title="Turn page back"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Paw Navigation Button -->
+      <div class="nav-paw-container nav-paw-right">
+        <button id="nextBtn" class="paw-btn" aria-label="Next Page">
+          <span>Next</span>
+          <svg viewBox="0 0 32 32"><path d="M 16 14 C 11 14 8 18 10 23 C 12 28 20 28 22 23 C 24 18 21 14 16 14 Z M 8 12 C 6.5 12 5.5 10 6 8.5 C 6.5 7 8.5 7 9.5 8.5 C 10.5 10 9.5 12 8 12 Z M 13 8 C 11.5 8 10.5 6 11 4.5 C 11.5 3 13.5 3 14.5 4.5 C 15.5 6 14.5 8 13 8 Z M 19 8 C 17.5 8 16.5 6 17 4.5 C 17.5 3 19.5 3 20.5 4.5 C 21.5 6 20.5 8 19 8 Z M 24 12 C 22.5 12 21.5 10 22 8.5 C 22.5 7 24.5 7 25.5 8.5 C 26.5 10 25.5 12 24 12 Z" /></svg>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Peeking Bottom Puppy Companion -->
+  <div class="puppy-companion" title="Click me for a happy bark!">
+    <div class="pet-bubble" id="puppyBubble">Woof! 🐾</div>
+    <!-- Puppy SVG -->
+    <svg viewBox="0 0 160 160" width="100%" height="100%">
+      <g class="puppy-tail">
+        <path d="M 122 105 C 145 95 152 70 142 55 C 134 45 125 58 126 72 C 127 82 120 95 116 102 Z" fill="#f4a261" stroke="#e76f51" stroke-width="2"/>
+        <ellipse cx="140" cy="53" rx="7" ry="10" fill="#fff3cd"/>
+      </g>
+      <ellipse cx="44" cy="148" rx="16" ry="11" fill="#fffdfa" stroke="#f4a261" stroke-width="2.5"/>
+      <circle cx="38" cy="152" r="2.5" fill="#f8a594"/>
+      <circle cx="44" cy="154" r="2.5" fill="#f8a594"/>
+      <circle cx="50" cy="152" r="2.5" fill="#f8a594"/>
+      <ellipse cx="116" cy="148" rx="16" ry="11" fill="#fffdfa" stroke="#f4a261" stroke-width="2.5"/>
+      <circle cx="110" cy="152" r="2.5" fill="#f8a594"/>
+      <circle cx="116" cy="154" r="2.5" fill="#f8a594"/>
+      <circle cx="122" cy="152" r="2.5" fill="#f8a594"/>
+      <g class="puppy-head">
+        <path class="puppy-ear-left" d="M 36 68 C 15 50 10 95 24 112 C 32 122 46 105 44 88 Z" fill="#e76f51"/>
+        <path class="puppy-ear-right" d="M 124 68 C 145 50 150 95 136 112 C 128 122 114 105 116 88 Z" fill="#e76f51"/>
+        <ellipse cx="80" cy="85" rx="46" ry="40" fill="#f4a261"/>
+        <path d="M 80 47 C 73 58 64 78 60 92 C 58 106 70 114 80 114 C 90 114 102 106 100 92 C 96 78 87 58 80 47 Z" fill="#fffdfa"/>
+        <ellipse cx="60" cy="84" rx="6" ry="7.5" fill="#2b2d42"/>
+        <circle cx="58" cy="81" r="2.4" fill="#ffffff"/>
+        <circle cx="62" cy="86" r="1.2" fill="#ffffff"/>
+        <ellipse cx="100" cy="84" rx="6" ry="7.5" fill="#2b2d42"/>
+        <circle cx="98" cy="81" r="2.4" fill="#ffffff"/>
+        <circle cx="102" cy="86" r="1.2" fill="#ffffff"/>
+        <ellipse cx="48" cy="96" rx="8" ry="5" fill="#ffb4a2" opacity="0.65"/>
+        <ellipse cx="112" cy="96" rx="8" ry="5" fill="#ffb4a2" opacity="0.65"/>
+        <ellipse cx="80" cy="95" rx="5.5" ry="4" fill="#4a2e2b"/>
+        <path d="M 80 99 L 80 104 M 74 104 C 76 107 79 108 80 105 C 81 108 84 107 86 104" stroke="#4a2e2b" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M 77 105 C 77 112 83 112 83 105 Z" fill="#ff758c"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Instructions & Keyboard Hints -->
+  <footer class="app-footer">
+    <div class="instructions-hint">
+      <span>Use</span>
+      <kbd>←</kbd>
+      <kbd>→</kbd>
+      <span>or click the cute paw buttons & corners to flip</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/book.js"></script>
+  <script src="js/companions.js"></script>
+</body>
+</html>

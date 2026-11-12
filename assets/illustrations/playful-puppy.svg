@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 140" width="100%" height="100%">
+  <!-- Sunshine rays -->
+  <g stroke="#fde047" stroke-width="2.5" stroke-linecap="round">
+    <line x1="28" y1="28" x2="22" y2="22"/>
+    <line x1="42" y1="24" x2="42" y2="15"/>
+    <line x1="56" y1="28" x2="62" y2="22"/>
+  </g>
+  <circle cx="42" cy="38" r="16" fill="#fef08a"/>
+
+  <!-- Playful puppy body sitting -->
+  <ellipse cx="80" cy="98" rx="28" ry="24" fill="#f4a261"/>
+  <ellipse cx="80" cy="104" rx="14" ry="14" fill="#fffdfa"/>
+
+  <!-- Paws in front -->
+  <ellipse cx="70" cy="116" rx="8" ry="6" fill="#fffdfa" stroke="#f4a261" stroke-width="1.8"/>
+  <ellipse cx="90" cy="116" rx="8" ry="6" fill="#fffdfa" stroke="#f4a261" stroke-width="1.8"/>
+
+  <!-- Wagging Tail -->
+  <path d="M 106 98 C 122 92 128 78 122 70" stroke="#f4a261" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Puppy Head with tilt -->
+  <g transform="rotate(6, 80, 68)">
+    <!-- Ears -->
+    <path d="M 52 54 C 40 42 38 68 46 80 C 50 86 58 78 56 68 Z" fill="#e76f51"/>
+    <path d="M 108 54 C 120 42 122 68 114 80 C 110 86 102 78 104 68 Z" fill="#e76f51"/>
+
+    <!-- Head -->
+    <ellipse cx="80" cy="65" rx="30" ry="26" fill="#f4a261"/>
+    <path d="M 80 44 C 74 52 68 65 65 74 C 63 82 72 88 80 88 C 88 88 97 82 95 74 C 92 65 86 52 80 44 Z" fill="#fffdfa"/>
+
+    <!-- Big Happy Shiny Eyes -->
+    <ellipse cx="68" cy="65" rx="4.5" ry="5.5" fill="#2b2d42"/>
+    <circle cx="66.5" cy="63" r="1.8" fill="#ffffff"/>
+
+    <ellipse cx="92" cy="65" rx="4.5" ry="5.5" fill="#2b2d42"/>
+    <circle cx="90.5" cy="63" r="1.8" fill="#ffffff"/>
+
+    <!-- Cheeks -->
+    <circle cx="60" cy="73" r="5" fill="#ffb4a2" opacity="0.7"/>
+    <circle cx="100" cy="73" r="5" fill="#ffb4a2" opacity="0.7"/>
+
+    <!-- Nose & Smile & Tongue -->
+    <ellipse cx="80" cy="72" rx="4" ry="3" fill="#4a2e2b"/>
+    <path d="M 80 75 L 80 78 M 76 78 C 77 81 79 81 80 79 C 81 81 83 81 84 78" stroke="#4a2e2b" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <path d="M 78 79 C 78 85 82 85 82 79 Z" fill="#ff758c"/>
+
+    <!-- Flower on head -->
+    <circle cx="94" cy="46" r="4.5" fill="#ff85a1"/>
+    <circle cx="100" cy="50" r="4.5" fill="#ff85a1"/>
+    <circle cx="94" cy="54" r="4.5" fill="#ff85a1"/>
+    <circle cx="88" cy="50" r="4.5" fill="#ff85a1"/>
+    <circle cx="94" cy="50" r="3.2" fill="#fde047"/>
+  </g>
+</svg>

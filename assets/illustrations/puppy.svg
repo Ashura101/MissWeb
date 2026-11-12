@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#f8a594" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Wagging Tail in Background -->
+  <g class="puppy-tail">
+    <path d="M 122 105 C 145 95 152 70 142 55 C 134 45 125 58 126 72 C 127 82 120 95 116 102 Z" fill="#f4a261" stroke="#e76f51" stroke-width="2"/>
+    <ellipse cx="140" cy="53" rx="7" ry="10" fill="#fff3cd"/>
+  </g>
+
+  <!-- Paws resting over edge -->
+  <ellipse cx="44" cy="148" rx="16" ry="11" fill="#fffdfa" stroke="#f4a261" stroke-width="2.5"/>
+  <circle cx="38" cy="152" r="2.5" fill="#f8a594"/>
+  <circle cx="44" cy="154" r="2.5" fill="#f8a594"/>
+  <circle cx="50" cy="152" r="2.5" fill="#f8a594"/>
+
+  <ellipse cx="116" cy="148" rx="16" ry="11" fill="#fffdfa" stroke="#f4a261" stroke-width="2.5"/>
+  <circle cx="110" cy="152" r="2.5" fill="#f8a594"/>
+  <circle cx="116" cy="154" r="2.5" fill="#f8a594"/>
+  <circle cx="122" cy="152" r="2.5" fill="#f8a594"/>
+
+  <!-- Puppy Head Group -->
+  <g class="puppy-head">
+    <!-- Floppy Left Ear -->
+    <path class="puppy-ear-left" d="M 36 68 C 15 50 10 95 24 112 C 32 122 46 105 44 88 Z" fill="#e76f51"/>
+    <!-- Floppy Right Ear -->
+    <path class="puppy-ear-right" d="M 124 68 C 145 50 150 95 136 112 C 128 122 114 105 116 88 Z" fill="#e76f51"/>
+
+    <!-- Head Base -->
+    <ellipse cx="80" cy="85" rx="46" ry="40" fill="#f4a261"/>
+    
+    <!-- White Face Patch / Blaze -->
+    <path d="M 80 47 C 73 58 64 78 60 92 C 58 106 70 114 80 114 C 90 114 102 106 100 92 C 96 78 87 58 80 47 Z" fill="#fffdfa"/>
+
+    <!-- Cute Eyes -->
+    <ellipse cx="60" cy="84" rx="6" ry="7.5" fill="#2b2d42"/>
+    <circle cx="58" cy="81" r="2.4" fill="#ffffff"/>
+    <circle cx="62" cy="86" r="1.2" fill="#ffffff"/>
+
+    <ellipse cx="100" cy="84" rx="6" ry="7.5" fill="#2b2d42"/>
+    <circle cx="98" cy="81" r="2.4" fill="#ffffff"/>
+    <circle cx="102" cy="86" r="1.2" fill="#ffffff"/>
+
+    <!-- Pink Blush Cheeks -->
+    <ellipse cx="48" cy="96" rx="8" ry="5" fill="#ffb4a2" opacity="0.65"/>
+    <ellipse cx="112" cy="96" rx="8" ry="5" fill="#ffb4a2" opacity="0.65"/>
+
+    <!-- Cute Heart/Oval Nose -->
+    <ellipse cx="80" cy="95" rx="5.5" ry="4" fill="#4a2e2b"/>
+    <path d="M 80 99 L 80 104 M 74 104 C 76 107 79 108 80 105 C 81 108 84 107 86 104" stroke="#4a2e2b" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+    <!-- Little Pink Tongue -->
+    <path d="M 77 105 C 77 112 83 112 83 105 Z" fill="#ff758c"/>
+  </g>
+</svg>

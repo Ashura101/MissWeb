@@ -1,0 +1,488 @@
+/* Cute Aesthetics, Puppies, Kittens, and Decorations */
+
+/* Custom Cute Fonts loaded in HTML */
+body {
+  font-family: 'Quicksand', 'Comfortaa', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.handwritten {
+  font-family: 'Caveat', 'Patrick Hand', cursive;
+}
+
+/* Background Animated Canvas */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Floating Navigation Arrows - Shaped as Cute Paws */
+.nav-paw-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 120;
+  display: flex;
+  align-items: center;
+}
+.nav-paw-left {
+  left: max(16px, calc(50% - var(--book-width) - 80px));
+}
+.nav-paw-right {
+  right: max(16px, calc(50% - var(--book-width) - 80px));
+}
+
+@media (max-width: 900px) {
+  .nav-paw-left {
+    left: max(8px, calc(50% - var(--book-width) - 70px));
+  }
+  .nav-paw-right {
+    right: max(8px, calc(50% - var(--book-width) - 70px));
+  }
+}
+
+@media (max-width: 720px) {
+  .nav-paw-container {
+    top: auto;
+    bottom: -65px;
+    transform: none;
+  }
+  .nav-paw-left {
+    left: calc(50% - 115px);
+  }
+  .nav-paw-right {
+    right: calc(50% - 115px);
+  }
+}
+
+.paw-btn {
+  background: #ffffff;
+  border: 3px solid #ffccd5;
+  border-radius: 50px;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 18px rgba(255, 182, 193, 0.4),
+              0 3px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #ff6b8b;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.paw-btn:hover {
+  transform: scale(1.12) translateY(-2px);
+  background: #fff5f7;
+  border-color: #ff85a1;
+  box-shadow: 0 12px 24px rgba(255, 133, 161, 0.5);
+}
+.paw-btn:active {
+  transform: scale(0.96);
+}
+.paw-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #ff6b8b;
+  transition: transform 0.25s ease;
+}
+.paw-btn:hover svg {
+  transform: rotate(12deg) scale(1.15);
+}
+
+/* Hanging Bookmark Ribbon */
+.bookmark-ribbon {
+  position: absolute;
+  top: -12px;
+  right: 50px;
+  background: linear-gradient(180deg, #ff758c 0%, #ff5277 100%);
+  color: white;
+  padding: 12px 14px 18px 14px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(255, 82, 119, 0.4);
+  z-index: 110;
+  border-radius: 4px 4px 0 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.bookmark-ribbon:hover {
+  transform: translateY(4px);
+}
+
+/* Audio & Settings Cute Pill */
+.top-pill-menu {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  z-index: 200;
+  display: flex;
+  gap: 10px;
+}
+
+.cute-pill-btn {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: 2px solid #ffd8e0;
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ff6b8b;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 182, 193, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+.cute-pill-btn:hover {
+  transform: scale(1.06);
+  background: #ffffff;
+  border-color: #ff85a1;
+}
+
+/* Washi Tape Aesthetics */
+.washi-tape {
+  position: absolute;
+  height: 22px;
+  width: 90px;
+  opacity: 0.85;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+  pointer-events: none;
+}
+.washi-top-left {
+  top: 8px;
+  left: 12px;
+  transform: rotate(-4deg);
+  background: repeating-linear-gradient(
+    45deg,
+    #ffe3ec,
+    #ffe3ec 10px,
+    #ffd1dc 10px,
+    #ffd1dc 20px
+  );
+}
+.washi-top-right {
+  top: 8px;
+  right: 12px;
+  transform: rotate(5deg);
+  background: repeating-linear-gradient(
+    -45deg,
+    #e0f2fe,
+    #e0f2fe 10px,
+    #bae6fd 10px,
+    #bae6fd 20px
+  );
+}
+
+/* Page Pastel Themes */
+.theme-cover {
+  background: radial-gradient(circle at 50% 35%, #fff5f3 0%, #ffe3dc 65%, #ffd4cb 100%);
+}
+.theme-strawberry {
+  background: linear-gradient(160deg, #fffafb 0%, #ffedf2 60%, #ffe0e9 100%);
+}
+.theme-honey {
+  background: linear-gradient(160deg, #fffdf8 0%, #fff9e6 60%, #fff3cd 100%);
+}
+.theme-lavender {
+  background: linear-gradient(160deg, #faf8ff 0%, #f3effe 60%, #e9e2fe 100%);
+}
+.theme-mint {
+  background: linear-gradient(160deg, #f8fdfa 0%, #eefbf3 60%, #ddf6e6 100%);
+}
+.theme-peach {
+  background: linear-gradient(160deg, #fff9f6 0%, #fff1ea 60%, #ffe2d4 100%);
+}
+
+/* Page Inner Layout */
+.page-header {
+  margin-top: 10px;
+  text-align: center;
+}
+.page-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px dashed rgba(255, 107, 139, 0.4);
+  border-radius: 20px;
+  font-size: 0.78rem;
+  color: #ff6b8b;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.page-title {
+  margin: 12px 0 6px 0;
+  font-size: 1.65rem;
+  color: #4a3b32;
+  font-family: 'Fredoka', 'Quicksand', sans-serif;
+  font-weight: 600;
+}
+
+.page-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px 14px;
+}
+.page-message {
+  font-size: 1.35rem;
+  line-height: 1.7;
+  color: #5d4a41;
+  font-family: 'Caveat', cursive;
+  max-width: 90%;
+  margin: 12px 0;
+}
+
+.page-illustration-box {
+  width: 140px;
+  height: 140px;
+  margin: 8px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-footer {
+  text-align: center;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  color: #a38c82;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+}
+.page-num {
+  font-weight: 700;
+  color: #b08d79;
+}
+.page-hint {
+  font-style: italic;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+/* Cover Styling */
+.cover-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px dashed rgba(255, 150, 140, 0.4);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+}
+.cover-badge {
+  background: #ff758c;
+  color: white;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 10px rgba(255, 117, 140, 0.35);
+}
+.cover-title {
+  font-size: 2.3rem;
+  color: #4a2e2b;
+  font-family: 'Fredoka', cursive;
+  margin: 8px 0;
+  line-height: 1.25;
+}
+.cover-subtitle {
+  font-size: 1.4rem;
+  color: #7a544f;
+  font-family: 'Caveat', cursive;
+  margin-top: 4px;
+}
+.cover-btn-open {
+  margin-top: 20px;
+  background: linear-gradient(135deg, #ff85a1 0%, #ff6b8b 100%);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 107, 139, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.cover-btn-open:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 12px 28px rgba(255, 107, 139, 0.6);
+}
+
+/* =========================================
+   ANIMATED PET COMPANIONS AROUND THE BOOK
+========================================= */
+
+/* Bottom-Left Peeking Puppy */
+.puppy-companion {
+  position: fixed;
+  bottom: -5px;
+  left: 20px;
+  width: 140px;
+  height: 140px;
+  z-index: 150;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 6px 12px rgba(90, 50, 40, 0.18));
+}
+.puppy-companion:hover {
+  transform: translateY(-16px) scale(1.05);
+}
+.puppy-tail {
+  transform-origin: bottom center;
+  animation: wagTail 0.75s ease-in-out infinite alternate;
+}
+@keyframes wagTail {
+  0% { transform: rotate(-18deg); }
+  100% { transform: rotate(24deg); }
+}
+.puppy-ear-left {
+  transform-origin: top left;
+  animation: flopEarLeft 3s ease-in-out infinite alternate;
+}
+.puppy-ear-right {
+  transform-origin: top right;
+  animation: flopEarRight 3.2s ease-in-out infinite alternate;
+}
+@keyframes flopEarLeft {
+  0%, 75% { transform: rotate(0deg); }
+  85% { transform: rotate(-10deg); }
+  95% { transform: rotate(2deg); }
+}
+@keyframes flopEarRight {
+  0%, 80% { transform: rotate(0deg); }
+  90% { transform: rotate(12deg); }
+  100% { transform: rotate(-2deg); }
+}
+
+/* Top-Right Sleeping / Blinking Kitten */
+.kitten-companion {
+  position: absolute;
+  top: -48px;
+  right: 18px;
+  width: 110px;
+  height: 80px;
+  z-index: 130;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 5px 10px rgba(90, 50, 40, 0.15));
+}
+.kitten-companion:hover {
+  transform: translateY(-8px) scale(1.08);
+}
+.kitten-tail {
+  transform-origin: bottom left;
+  animation: curlTail 2.5s ease-in-out infinite alternate;
+}
+@keyframes curlTail {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(18deg); }
+}
+.kitten-ear-left, .kitten-ear-right {
+  transform-origin: bottom center;
+  animation: earTwitch 4s ease-in-out infinite;
+}
+@keyframes earTwitch {
+  0%, 90%, 100% { transform: rotate(0deg); }
+  93% { transform: rotate(-8deg); }
+  96% { transform: rotate(6deg); }
+}
+
+/* Speech / Reaction Bubble for Pets */
+.pet-bubble {
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: #ffffff;
+  border: 2px solid #ffb3c1;
+  color: #ff5277;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(255, 179, 193, 0.4);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.pet-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 5px 0 5px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+.pet-bubble.active {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* Send Love Interactive Heart Burst Button on Final Page */
+.btn-send-love {
+  background: linear-gradient(135deg, #ff6b8b 0%, #ff85a1 100%);
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 50px;
+  font-family: 'Comfortaa', cursive;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255, 107, 139, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-send-love:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 107, 139, 0.6);
+}
+
+/* Floating Heart Burst Particles */
+.floating-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+  animation: floatUpFade 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes floatUpFade {
+  0% {
+    transform: translate(0, 0) scale(0.6) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx, 0px), var(--ty, -140px)) scale(1.3) rotate(var(--tr, 25deg));
+    opacity: 0;
+  }
+}
